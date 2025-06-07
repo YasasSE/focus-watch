@@ -1,0 +1,64 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Watch Video</title>
+  <style>
+    body {
+      background-color: #000;
+      margin: 0;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      align-items: center;
+      height: 100vh;
+      color: white;
+    }
+    iframe {
+      width: 80%;
+      height: 80vh;
+      border: none;
+    }
+    #fullscreenBtn {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #1f80e0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      font-size: 16px;
+      cursor: pointer;
+    }
+    #fullscreenBtn:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <iframe id="player" allowfullscreen></iframe>
+  <button id="fullscreenBtn">Go Fullscreen</button>
+
+  <script>
+    const urlParams = new URLSearchParams(window.location.search);
+    const videoId = urlParams.get("video");
+
+    if (videoId) {
+      const embedUrl = `https://www.youtube.com/embed/${videoId}?rel=0&autoplay=1`;
+      const player = document.getElementById("player");
+      player.src = embedUrl;
+
+      document.getElementById("fullscreenBtn").onclick = () => {
+        if (player.requestFullscreen) {
+          player.requestFullscreen();
+        } else if (player.webkitRequestFullscreen) {
+          player.webkitRequestFullscreen();
+        } else if (player.msRequestFullscreen) {
+          player.msRequestFullscreen();
+        }
+      };
+    } else {
+      document.body.innerHTML = "<h1>No video found.</h1>";
+    }
+  </script>
+</body>
+</html>

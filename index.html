@@ -1,0 +1,59 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <title>Focus Watch</title>
+  <style>
+    body {
+      background-color: #121212;
+      color: white;
+      font-family: Arial, sans-serif;
+      text-align: center;
+      padding-top: 100px;
+    }
+    input {
+      width: 60%;
+      padding: 12px;
+      font-size: 16px;
+      border-radius: 6px;
+      border: none;
+    }
+    button {
+      padding: 12px 20px;
+      margin-left: 10px;
+      font-size: 16px;
+      background-color: #1f80e0;
+      color: white;
+      border: none;
+      border-radius: 6px;
+      cursor: pointer;
+    }
+    button:hover {
+      background-color: #1565c0;
+    }
+  </style>
+</head>
+<body>
+  <h1>🎯 Focus Watch</h1>
+  <p>Paste a YouTube video link below:</p>
+  <input type="text" id="youtubeUrl" placeholder="https://www.youtube.com/watch?v=..." />
+  <button onclick="loadVideo()">Watch</button>
+
+  <script>
+    function loadVideo() {
+      const url = document.getElementById('youtubeUrl').value;
+      const videoId = getYouTubeVideoID(url);
+      if (videoId) {
+        window.location.href = `watch.html?video=${videoId}`;
+      } else {
+        alert("Please enter a valid YouTube URL.");
+      }
+    }
+
+    function getYouTubeVideoID(url) {
+      const match = url.match(/(?:v=|youtu\.be\/)([a-zA-Z0-9_-]{11})/);
+      return match ? match[1] : null;
+    }
+  </script>
+</body>
+</html>
